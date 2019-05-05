@@ -1,0 +1,97 @@
+---
+title: "Tidyverse_recipes - Jithendra Seneviratne"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+### In This Series of Exercises, we'll explore selected functonality from the following packages:
+# 1. ggplot2 - geom_line, geom_point
+# 2. forcats - mutate
+# 3. tidyr - gather
+```
+
+
+```{r}
+### Lets first load in the tidyverse library
+library(tidyverse)
+```
+
+```{r}
+### Suicide Rate Data to Demonstrate ggplot Functionality
+#### Let's use data of suicide rates and counts from different countries over the last twenty-thirty years to demonstrate ggplot2
+#### Source : https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016
+suicide_rate <- read.csv('suicide.csv', sep=',')
+head(suicide_rate)
+```
+
+```{r}
+#### Let's pick three countries and analyze how their suicide rates have changed over the last three decades
+
+suicide_group <- aggregate(suicide_rate$suicides.100k.pop, by=list(suicide_rate$country,
+                                                                suicide_rate$year), FUN=mean)
+
+ggplot(filter(suicide_group, Group.1 %in% c("Albania", "Uzbekistan", "United States")),
+       aes(x=Group.2,
+           y=x,
+           color=Group.1))+
+  geom_point()+
+  geom_line()
+```
+
+```{r}
+### Mushroom data to demonstrate the forcats functionality
+#### Let's use the dataset on mushrooms to group smaller values of a categorical variable into a category called 'other'
+#### The dataset's origin is from http://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/. However I have done some pre-processing to the data:
+mushrooms = read.csv('https://raw.githubusercontent.com/jitsen-design/CUNY_DATA_606_Submissions/master/Data_607/Week-1/mushrooms.csv', header = TRUE)
+```
+
+```{r}
+head(mushrooms)
+```
+
+```{r}
+#### Let's use the 'mutate' function to group our smaller categories. We'll group the 'cap.color' variable
+mushrooms %>%
+  mutate(cap.color = fct_lump(cap.color, n = 3)) %>%
+  count(cap.color)
+```
+
+
+```{r}
+### Unemployment data to demonstrate tidyr functionality
+#### Let's use unemployment data from the USDA to turn wide format columns into long format
+#### Source: https://www.ers.usda.gov/webdocs/DataFiles/48747/Unemployment.xls?v=0
+
+library("readxl")
+unemployment <- read_excel('Unemployment.xls',
+                skip=7)
+
+head(unemployment)
+```
+
+```{r}
+#### Let's use the gather function to turnall columns except the following into long format:
+####1. State
+####2. Area_ame
+####3. FIPStxt
+####4. Rural_urban_continuum_code_2013,
+####5. Urban_influence_code_2013,
+####6. Metro_2013
+
+unemp_gather <-gather(unemployment, 
+               metric, 
+               value, 
+               -State, 
+               -Area_name, 
+               -FIPStxt, 
+               -Rural_urban_continuum_code_2013,
+               -Urban_influence_code_2013,
+               -Metro_2013)
+
+head(unemp_gather)
+```
+
