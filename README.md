@@ -70,3 +70,20 @@ I decided to do my tidyverse assignment on the tibbles package. The rmarkdown co
 
 ### Isabel R.
 I will focus on how to use the `Nest` and `Unnest` functions utilizing data from *FiveThirtyEight*,"How Popular Is Donald Trump?" from the trump-approval-ratings data set. The rmarkdown code has been posted to this repository and the html file can be found here: http://rpubs.com/IsabelR/TidyVerseAssignment
+
+## Jithendra Seneviratne
+
+I demonstrated selected functionality of the following packages:
+* ggplot
+* forcats
+* tidyr
+
+[Project_file](https://github.com/jitsen-design/SPRING2019TIDYVERSE/blob/master/tidyverse_recipes_jithendra_seneviratne.Rmd)
+
+My datasets are from Kaggle, the USDA and the UCI Machine Learning Repository
+
+I also modified a file by Yohannes Deboch, demonstrating the ggplot boxplot functionality
+
+[Modification](https://github.com/jitsen-design/SPRING2019TIDYVERSE/blob/master/DATA%20607%20Tidy%20Verse%20assignment_updated_jit.Rmd)
+
+
